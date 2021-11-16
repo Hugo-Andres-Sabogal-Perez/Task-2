@@ -16,7 +16,7 @@ Sys.setlocale("LC_CTYPE", "en_US.UTF-8")
 # Punto 1 #
 #=========#
 
-ruta = lapply(2017:2020 , function(año) list.files(paste0("data/imput/", año),full.names=T)) %>% unlist()
+ruta = lapply(2017:2020 , function(a) list.files(paste0("data/imput/", a),full.names=T)) %>% unlist()
                 
 chip = list()
 for (i in 1:length(ruta)){
@@ -35,16 +35,26 @@ extraer = function(n,lista,tipo_rubro){
   
   lista_n = lista[[n]]
   colnames(lista_n) = lista_n[7,]
-  df$valor= lista_n %>% subset(NOMBRE==tipo_rubro) %>% select(`PAGOS(Pesos)`)
   
-  df$cod_dane= lista_n
+  df$cod_dane = lista_n[1,1]
+  
+  df$periodo = lista_n[2,1]
+  
+  df$pagos= lista_n %>% subset(NOMBRE==tipo_rubro) %>% select(`PAGOS(Pesos)`)
+  
+  
   
   return(df)
   
-  
 }
 
-extraer(n=10 , lista = chip , tipo_rubro = "SALUD" )
+extraer(n=10 , lista = chip , tipo_rubro = "EDUCACIÓN" )
 
+#=========#
+# Punto 3 #
+#=========#
+
+
+lapply(chip, FUN=function(n) extraer(n=1,lista=chip,tipo_rubro = "EDUCACIÓN"))
 
 
