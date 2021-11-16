@@ -31,12 +31,13 @@ View(chip)
 
 
 extraer = function(n,lista,tipo_rubro){
-  df = data.frame(valor=NA,cod_dane=NA,periodo=NA)
+  df = data.frame(pagos=NA,cod_dane=NA,periodo=NA)
   
   lista_n = lista[[n]]
+  
   colnames(lista_n) = lista_n[7,]
   
-  df$cod_dane = lista_n[1,1]
+  df$cod_dane = colnames(lista_n)[1]
   
   df$periodo = lista_n[2,1]
   
