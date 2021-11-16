@@ -35,11 +35,12 @@ extraer = function(n,lista,tipo_rubro){
   
   lista_n = lista[[n]]
   
-  colnames(lista_n) = lista_n[7,]
   
   df$cod_dane = colnames(lista_n)[1]
   
   df$periodo = lista_n[2,1]
+  
+  colnames(lista_n) = lista_n[7,]
   
   df$pagos= lista_n %>% subset(NOMBRE==tipo_rubro) %>% select(`PAGOS(Pesos)`)
   
